@@ -1,27 +1,34 @@
 import pygame as pg
-import pymunk.pygame_util
-pymunk.pygame_util.positive_y_is_up = False
+from player import Player
+from voxel_render import VoxelRender
 
-PER = WIDTH, HEIGHT = 1200, 1000
-FPS = 60
 
-pg.init()
-display = pg.display.set_mode(PER)
-time = pg.time.Clock()
-draw_options = pymunk.pygame_util.DrawOptions(display)
+class App:
+    def __init__(self):
+        self.res = self.width, self.height = (800, 450)
+        self.screen = pg.display.set_mode(self.res, pg.SCALED)
+        self.clock = pg.time.Clock()
+        self.player = Player()
+        self.voxel_render = VoxelRender(self)
 
-place = pymunk.Space()
-place.gravity = 0, 2000
+    def update(self):
+        self.player.update()
+        self.voxel_render.update()
 
-while True:
-    display.fill(pg.Color('White'))
+    def draw(self):
+        self.voxel_render.draw()
+        pg.display.flip()
 
-    for i in pg.event.get():
-        if i.type == pg.QUIT:
-            exit()
+    def run(self):
+        while True:
+            self.update()
+            self.draw()
 
-    place.step(1 / FPS)
-    place.debug_draw(draw_options)
+            [exit() for i in pg.event.get() if i.type == pg.QUIT]
+            self.clock.tick(60)
+            pg.display.set_caption(f"FPS: {self.clock.get_fps()}")
 
-    pg.display.flip()
-    time.tick(FPS)
+
+if __name__ == "__main__":
+    app = App()
+    app.run()
