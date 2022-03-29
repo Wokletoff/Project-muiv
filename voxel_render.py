@@ -3,10 +3,10 @@ from numba import njit
 import numpy as np
 import math
 
-height_map_img = pg.image.load("img/height_map.jpg")
+height_map_img = pg.image.load("img/height_map_1.png")
 height_map = pg.surfarray.array3d(height_map_img)
 
-color_map_img = pg.image.load("img/color_map.jpg")
+color_map_img = pg.image.load("img/color_map_1.png")
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])
@@ -43,6 +43,8 @@ def ray_casting(screen_array, player_pos, player_angle, player_height, player_pi
                         first_contact = True
 
                     # remove mirror bug
+                    if height_on_screen < 0:
+                        height_on_screen = 0
 
                     # draw vert line
                     if height_on_screen < y_buffer[num_ray]:
