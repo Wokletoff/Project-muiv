@@ -8,7 +8,7 @@ from random import randrange
 
 class App:
     def __init__(self):
-        self.res = self.width, self.height = (800, 400)
+        self.res = self.width, self.height = (1920, 1080)
         self.screen = pg.display.set_mode(self.res, pg.SCALED)
         self.clock = pg.time.Clock()
         self.player = Player()
@@ -38,23 +38,35 @@ class App:
                     self.menu_trigger = False
 
             color = randrange(40)
+
+            pg.draw.rect(self.screen, color, button_start, border_radius=25, width=10)
+            self.screen.blit(start, (button_start.centerx - 130, button_start.centery - 70))
+
+            pg.draw.rect(self.screen, color, button_exit, border_radius=25, width=10)
+            self.screen.blit(exit, (button_exit.centerx - 85, button_exit.centery - 70))
+
             label = label_font.render('GroundMap', 1, (color, color, color))
             self.screen.blit(label, (15, -30))
+
             mouse_pos = pg.mouse.get_pos()
             mouse_click = pg.mouse.get_pressed()
             if button_start.collidepoint(mouse_pos):
                 pg.draw.rect(self.screen, color, button_start, border_radius=25)
                 self.screen.blit(start, (button_start.centerx - 130, button_start.centery - 70))
                 if mouse_click[0]:
-                    pass
+                    # action at klick
+                        self.voxel_render.draw()
+                        pg.display.flip()
+
             elif button_exit.collidepoint(mouse_pos):
                 pg.draw.rect(self.screen, color, button_exit, border_radius=25)
                 self.screen.blit(exit, (button_exit.centerx - 85, button_exit.centery - 70))
                 if mouse_click[0]:
-                    self.menu_trigger = False
+                    pg.quit()
+                    sys.exit()
 
             pg.display.flip()
-            self.clock.tick(40)
+            self.clock.tick(20)
 
     def run(self):
         while True:
@@ -68,5 +80,6 @@ class App:
 
 if __name__ == "__main__":
     pg.init()
+    pg.mouse.set_visible(False)
     app = App()
     app.run()
