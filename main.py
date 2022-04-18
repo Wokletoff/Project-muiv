@@ -2,6 +2,7 @@ import pygame as pg
 from player import Player
 from voxel_render import VoxelRender
 from menu import Menu
+from music import Music
 
 
 class App:
@@ -11,19 +12,21 @@ class App:
         self.clock = pg.time.Clock()
         self.player = Player()
         self.menu = Menu()
+        self.music = Music()
         self.voxel_render = VoxelRender(self)
 
     def update(self):
         self.player.update()
         self.voxel_render.update()
+        self.menu.update()
 
     def draw(self):
-        self.menu.update()
         self.voxel_render.draw()
         pg.display.flip()
 
     def run(self):
         while True:
+
             self.update()
             self.draw()
 
@@ -33,6 +36,7 @@ class App:
 
 
 if __name__ == "__main__":
+    Music.play_music()
     pg.init()
     app = App()
     app.run()
