@@ -18,7 +18,9 @@ class App:
     def update(self):
         self.player.update()
         self.voxel_render.update()
-        self.menu.update()
+        #self.menu.update()
+        if self.player.collision(self.voxel_render):
+            print('hit')
 
     def draw(self):
         self.voxel_render.draw()

@@ -10,14 +10,14 @@ class Menu:
         self.screen = pg.display.set_mode(self.res, pg.SCALED)
         # menu
         self.menu_trigger = True
-        self.menu_picture = pg.image.load("bcgd.jpg").convert()
+        self.menu_picture = pg.image.load("img/bcgd.jpg").convert()
         # font
         self.font = pg.font.SysFont("Arial", 36, bold=True)
 
     def update(self):
         x = 0
-        button_font = pg.font.Font('font.ttf', 72)
-        label_font = pg.font.Font('font1.otf', 400)
+        button_font = pg.font.Font('font/font.ttf', 72)
+        label_font = pg.font.Font('font/font1.otf', 400)
         start = button_font.render('START', 1, pg.Color('lightgray'))
         button_start = pg.Rect(0, 0, 400, 150)
         button_start.center = 800, 450

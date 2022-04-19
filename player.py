@@ -32,10 +32,6 @@ class Player:
         if pressed_key[pg.K_e]:
             self.height -= self.vel
 
-        if pressed_key[pg.K_q]:
-            self.height += self.vel
-        if pressed_key[pg.K_e]:
-            self.height -= self.vel
 
         if pressed_key[pg.K_w]:
             self.pos[0] += self.vel * cos_a
@@ -50,3 +46,5 @@ class Player:
             self.pos[0] -= self.vel * sin_a
             self.pos[1] += self.vel * cos_a
 
+    def collision (self, pos_voxels):
+        return pos_voxels.collides_with(self.pos)

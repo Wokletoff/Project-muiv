@@ -70,6 +70,7 @@ class VoxelRender:
         self.screen_array = np.full((app.width, app.height, 3), (0, 0, 0))
 
     def update(self):
+        print(height_map, '\n--------------')
         self.screen_array = ray_casting(self.screen_array, self.player.pos, self.player.angle,
                                         self.player.height, self.player.pitch, self.app.width,
                                         self.app.height, self.delta_angle, self.ray_distance,
@@ -77,3 +78,9 @@ class VoxelRender:
 
     def draw(self):
         self.app.screen.blit(pg.surfarray.make_surface(self.screen_array), (0, 0))
+
+    def collides_with(self, point):
+        for _ in range(10):
+            if point[0] == 0 and point[1] == 0:
+                return False
+        return True
