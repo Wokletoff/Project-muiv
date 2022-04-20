@@ -3,10 +3,9 @@ from numba import njit
 import numpy as np
 import math
 
-height_map_img = pg.image.load("img/height_map_1.png")
+height_map_img = pg.image.load("img/test_hm.png")
 height_map = pg.surfarray.array3d(height_map_img)
-
-color_map_img = pg.image.load("img/color_map_1.png")
+color_map_img = pg.image.load("img/test_hm.png")
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])
@@ -19,6 +18,7 @@ def ray_casting(screen_array, player_pos, player_angle, player_height, player_pi
 
     screen_array[:] = np.array([0, 0, 0])
     y_buffer = np.full(screen_width, screen_height)
+
 
     ray_angle = player_angle - h_fov
     for num_ray in range(screen_width):
@@ -70,7 +70,7 @@ class VoxelRender:
         self.screen_array = np.full((app.width, app.height, 3), (0, 0, 0))
 
     def update(self):
-        print(height_map, '\n--------------')
+
         self.screen_array = ray_casting(self.screen_array, self.player.pos, self.player.angle,
                                         self.player.height, self.player.pitch, self.app.width,
                                         self.app.height, self.delta_angle, self.ray_distance,
@@ -79,8 +79,10 @@ class VoxelRender:
     def draw(self):
         self.app.screen.blit(pg.surfarray.make_surface(self.screen_array), (0, 0))
 
-    def collides_with(self, point):
-        for _ in range(10):
-            if point[0] == 0 and point[1] == 0:
-                return False
-        return True
+    def collides_on(self, point, height):
+        x = int(point[0])
+        y = int(point[1])
+        if x < 0 or point[1] < 0 or x >= len(self.screen_array) or y >= len(self.screen_array[0]):
+            return False
+        voxel_height = height_map[x, y][0]
+        return height <= voxel_height

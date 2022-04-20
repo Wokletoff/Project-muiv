@@ -20,7 +20,7 @@ class App:
         self.voxel_render.update()
         #self.menu.update()
         if self.player.collision(self.voxel_render):
-            print('hit')
+            self.player.restore_position()
 
     def draw(self):
         self.voxel_render.draw()

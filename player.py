@@ -13,6 +13,8 @@ class Player:
         self.vel = 3
 
     def update(self):
+        self.old_position = self.pos, self.height
+
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
 
@@ -32,7 +34,6 @@ class Player:
         if pressed_key[pg.K_e]:
             self.height -= self.vel
 
-
         if pressed_key[pg.K_w]:
             self.pos[0] += self.vel * cos_a
             self.pos[1] += self.vel * sin_a
@@ -47,4 +48,7 @@ class Player:
             self.pos[1] += self.vel * cos_a
 
     def collision (self, pos_voxels):
-        return pos_voxels.collides_with(self.pos)
+        return pos_voxels.collides_on(self.pos, self.height)
+
+    def restore_position(self):
+        self.pos, self.height = self.old_position
