@@ -1,7 +1,6 @@
 import pygame as pg
 from player import Player
 from voxel_render import VoxelRender
-from menu import Menu
 from music import Music
 
 
@@ -11,16 +10,12 @@ class App:
         self.screen = pg.display.set_mode(self.res, pg.SCALED)
         self.clock = pg.time.Clock()
         self.player = Player()
-        self.menu = Menu()
         self.music = Music()
         self.voxel_render = VoxelRender(self)
 
     def update(self):
         self.player.update()
         self.voxel_render.update()
-        #self.menu.update()
-        if self.player.collision(self.voxel_render):
-            self.player.restore_position()
 
     def draw(self):
         self.voxel_render.draw()
@@ -37,8 +32,4 @@ class App:
             pg.display.set_caption(f"FPS: {self.clock.get_fps()}")
 
 
-if __name__ == "__main__":
-    Music.play_music()
-    pg.init()
-    app = App()
-    app.run()
+
