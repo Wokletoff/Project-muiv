@@ -19,6 +19,10 @@ class Options:
         button_font = pg.font.Font('font/font.ttf', 72)
         label_font = pg.font.Font('font/font1.otf', 350)
 
+        res = button_font.render('RESOLUTION', 1, pg.Color('lightgray'))
+        button_res = pg.Rect(0, 0, 400, 150)
+        button_res.center = 600, 450 - 100
+
         while self.menu_trigger:
              for event in pg.event.get():
                 if event.type == pg.QUIT:

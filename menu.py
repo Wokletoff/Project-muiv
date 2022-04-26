@@ -4,6 +4,7 @@ from random import randrange
 from main import App
 from music import Music
 from options import Options
+from credit import About
 
 
 class Menu:
@@ -21,15 +22,22 @@ class Menu:
         x = 0
         button_font = pg.font.Font('font/font.ttf', 72)
         label_font = pg.font.Font('font/font1.otf', 400)
+
         start = button_font.render('START', 1, pg.Color('lightgray'))
         button_start = pg.Rect(0, 0, 400, 150)
-        button_start.center = 800, 450 - 100
+        button_start.center = 600, 450 - 100
+
+        about = button_font.render('CRED', 1, pg.Color('lightgray'))
+        button_about = pg.Rect(0, 0, 300, 150)
+        button_about.center = 180, 450 + 250
+
         options = button_font.render('OPTION', 1, pg.Color('lightgray'))
         button_options = pg.Rect(0, 0, 400, 150)
-        button_options.center = 800, 450 + 70
+        button_options.center = 600, 450 + 70
+
         exit = button_font.render('EXIT', 1, pg.Color('lightgray'))
         button_exit = pg.Rect(0, 0, 400, 150)
-        button_exit.center = 800, 450 + 250
+        button_exit.center = 600, 450 + 250
 
         while self.menu_trigger:
             for event in pg.event.get():
@@ -42,6 +50,9 @@ class Menu:
 
             pg.draw.rect(self.screen, (0, 0, 0), button_start, border_radius=25, width=10)
             self.screen.blit(start, (button_start.centerx - 120, button_start.centery - 60))
+
+            pg.draw.rect(self.screen, (0, 0, 0), button_about, border_radius=25, width=10)
+            self.screen.blit(about, (button_about.centerx - 100, button_about.centery - 60))
 
             pg.draw.rect(self.screen, (0, 0, 0), button_options, border_radius=25, width=10)
             self.screen.blit(options, (button_options.centerx - 150, button_options.centery - 60))
@@ -73,6 +84,15 @@ class Menu:
                     opp.drawing()
                     self.menu_trigger = False
 
+            elif button_about.collidepoint(mouse_pos):
+                pg.draw.rect(self.screen, color, button_about, border_radius=25)
+                self.screen.blit(about, (button_about.centerx - 100, button_about.centery - 60))
+                if mouse_click[0]:
+                    # action at click
+                    ab = About()
+                    ab.drawing()
+                    self.menu_trigger = False
+
             elif button_exit.collidepoint(mouse_pos):
                 pg.draw.rect(self.screen, color, button_exit, border_radius=25)
                 self.screen.blit(exit, (button_exit.centerx - 80, button_exit.centery - 60))
@@ -87,5 +107,5 @@ class Menu:
 if __name__ == "__main__":
     Music.play_music()
     pg.init()
-    manu = Menu()
-    manu.run()
+    menu = Menu()
+    menu.run()
