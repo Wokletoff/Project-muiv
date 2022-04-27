@@ -3,10 +3,10 @@ from numba import njit
 import numpy as np
 import math
 
-height_map_img = pg.image.load("img/height_map_1.png")
+height_map_img = pg.image.load("img/map04.jpg")
 height_map = pg.surfarray.array3d(height_map_img)
 
-color_map_img = pg.image.load("img/color_map_1.png")
+color_map_img = pg.image.load("img/mapcol04.jpg")
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])
