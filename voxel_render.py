@@ -1,12 +1,16 @@
 import pygame as pg
+from db import Database
 from numba import njit
 import numpy as np
 import math
 
-height_map_img = pg.image.load("img/map04.jpg")
+db = Database()
+print(db.pars_base(1, 1))
+
+height_map_img = pg.image.load(db.pars_base(1, 1))
 height_map = pg.surfarray.array3d(height_map_img)
 
-color_map_img = pg.image.load("img/mapcol04.jpg")
+color_map_img = pg.image.load(db.pars_base(1, 2))
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])

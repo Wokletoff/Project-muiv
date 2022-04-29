@@ -171,7 +171,9 @@ class Menu:
             pg.display.flip()
             self.clock.tick(20)
 
-        if next_function: next_function()
+        if next_function:
+            self.menu_trigger = True
+            next_function()
 
     def credits(self):
         x = 0
@@ -270,12 +272,14 @@ class Menu:
                 if mouse_click[0]:
                     # action at click
                     self.menu_trigger = False
-                    self.next_function = self.run
+                    next_function = self.run
 
             pg.display.flip()
             self.clock.tick(20)
 
-        if next_function: next_function()
+        if next_function:
+            self.menu_trigger = True
+            next_function()
 
 
 if __name__ == "__main__":
