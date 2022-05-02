@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from random import randrange
+from settings import settings
 from main import App
 from music import Music
 
@@ -120,9 +121,9 @@ class Menu:
         button_font = pg.font.Font('font/font.ttf', 72)
         label_font = pg.font.Font('font/font1.otf', 350)
 
-        volume = button_font.render('Volume', 1, pg.Color('lightgray'))
-        button_volume = pg.Rect(0, 0, 600, 150)
-        button_volume.center = 600, 450 - 100
+        volume = button_font.render('Mapchane', 1, pg.Color('lightgray'))
+        button_mapchane = pg.Rect(0, 0, 600, 150)
+        button_mapchane.center = 600, 450 - 100
 
         back = button_font.render('BACK', 1, pg.Color('lightgray'))
         button_back = pg.Rect(0, 0, 250, 100)
@@ -139,8 +140,8 @@ class Menu:
             self.screen.blit(self.menu_picture, (0, 0), (x % 1200, 400, 1200, 800))
             x += 1
 
-            pg.draw.rect(self.screen, (0, 0, 0), button_volume, border_radius=25, width=10)
-            self.screen.blit(volume, (button_volume.centerx - 240, button_volume.centery - 68))
+            pg.draw.rect(self.screen, (0, 0, 0), button_mapchane, border_radius=25, width=10)
+            self.screen.blit(volume, (button_mapchane.centerx - 240, button_mapchane.centery - 68))
 
             pg.draw.rect(self.screen, (0, 0, 0), button_back, border_radius=25, width=10)
             self.screen.blit(back, (button_back.centerx - 105, button_back.centery - 68))
@@ -149,6 +150,9 @@ class Menu:
 
             label = label_font.render('Options', 1, (color, color, color))
             self.screen.blit(label, (15, -30))
+
+            text = button_font.render(f"{settings.charts}", 1, (color, color, color))
+            self.screen.blit(text, (970, 280))
 
             mouse_pos = pg.mouse.get_pos()
             mouse_click = pg.mouse.get_pressed()
@@ -161,13 +165,15 @@ class Menu:
                     self.menu_trigger = False
                     next_function = self.run
 
-            elif button_volume.collidepoint(mouse_pos):
-                pg.draw.rect(self.screen, color, button_volume, border_radius=25)
-                self.screen.blit(volume, (button_volume.centerx - 240, button_volume.centery - 68))
+            elif button_mapchane.collidepoint(mouse_pos):
+                pg.draw.rect(self.screen, color, button_mapchane, border_radius=25)
+                self.screen.blit(volume, (button_mapchane.centerx - 240, button_mapchane.centery - 68))
                 if mouse_click[0]:
-                    # action at click
-                    pass
-
+                    def func(self, charts):
+                        settings.charts += 1
+                        if settings.charts > 3:
+                            settings.charts = 1
+                    func(self, settings.charts)
             pg.display.flip()
             self.clock.tick(20)
 

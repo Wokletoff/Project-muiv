@@ -1,16 +1,16 @@
 import pygame as pg
-from db import Database
 from numba import njit
 import numpy as np
 import math
+from settings import settings
+from db import Database
 
 db = Database()
-print(db.pars_base(1, 1))
 
-height_map_img = pg.image.load(db.pars_base(1, 1))
+height_map_img = pg.image.load(db.pars_base(settings.charts, 1))
 height_map = pg.surfarray.array3d(height_map_img)
 
-color_map_img = pg.image.load(db.pars_base(1, 2))
+color_map_img = pg.image.load(db.pars_base(settings.charts, 2))
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])
@@ -81,3 +81,4 @@ class VoxelRender:
 
     def draw(self):
         self.app.screen.blit(pg.surfarray.make_surface(self.screen_array), (0, 0))
+

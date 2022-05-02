@@ -1,6 +1,6 @@
 import sqlite3
 import sys
-
+from settings import settings
 
 class Database:
 
@@ -55,7 +55,7 @@ class Database:
             return record[what_map]
 
     def run(self):
-        self.pars_base(1, 1)
+        self.pars_base(settings.int_map, 2)
 
 
 if __name__ == "__main__":
