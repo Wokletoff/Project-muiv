@@ -121,7 +121,7 @@ class Menu:
         button_font = pg.font.Font('font/font.ttf', 72)
         label_font = pg.font.Font('font/font1.otf', 350)
 
-        volume = button_font.render('Mapchane', 1, pg.Color('lightgray'))
+        volume = button_font.render('Mapchange', 1, pg.Color('lightgray'))
         button_mapchane = pg.Rect(0, 0, 600, 150)
         button_mapchane.center = 600, 450 - 100
 
@@ -151,7 +151,7 @@ class Menu:
             label = label_font.render('Options', 1, (color, color, color))
             self.screen.blit(label, (15, -30))
 
-            text = button_font.render(f"{settings.charts}", 1, (color, color, color))
+            text = button_font.render(f"{settings.int_map}", 1, (color, color, color))
             self.screen.blit(text, (970, 280))
 
             mouse_pos = pg.mouse.get_pos()
@@ -169,11 +169,13 @@ class Menu:
                 pg.draw.rect(self.screen, color, button_mapchane, border_radius=25)
                 self.screen.blit(volume, (button_mapchane.centerx - 240, button_mapchane.centery - 68))
                 if mouse_click[0]:
-                    def func(self, charts):
-                        settings.charts += 1
-                        if settings.charts > 3:
-                            settings.charts = 1
-                    func(self, settings.charts)
+                        def func(self, int_map):
+                            settings.int_map += 1
+                            if settings.int_map > 3:
+                                settings.int_map = 1
+                        func(self, settings._int_map)
+
+
             pg.display.flip()
             self.clock.tick(20)
 
